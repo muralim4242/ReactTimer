@@ -6,7 +6,7 @@ var $ = require("jQuery");
 
 var CountdownForm = require("CountdownForm");
 
-describe('Countdown', () => {
+describe('Countdown Form', () => {
     it("should exit", () => {
         expect(CountdownForm).toExist();
     })
