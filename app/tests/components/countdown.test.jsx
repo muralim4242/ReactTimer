@@ -12,7 +12,7 @@ describe("Countdown", () => {
     });
 
     describe("onSetCountDown funtion defination test", () => {
-        it("on set function should work", () => {
+        it("on set function should work", (done) => {
             var countdown = TestUtils.renderIntoDocument(<Countdown/>);
             countdown.handleSetCountDown(10);
 
@@ -21,16 +21,45 @@ describe("Countdown", () => {
 
             setInterval(() => {
                 expect(countdown.state.count).toBe(9);
-            }, 10001)
+                done();
+            }, 1001)
+
         });
 
-        it("on set function should not show negative number if seconds is 1", () => {
+        it("never run the clock when count is zero", (done) => {
             var countdown = TestUtils.renderIntoDocument(<Countdown/>);
             countdown.handleSetCountDown(1);
 
             setInterval(() => {
                 expect(countdown.state.count).toBe(0);
-            },3001)
+                done();
+            }, 3001)
+
+
+        });
+
+        it("clicking on pause to stop count", (done) => {
+            var countdown = TestUtils.renderIntoDocument(<Countdown/>);
+            countdown.handleSetCountDown(3);
+            countdown.handleCountdownStatusChanged("pause")
+
+            setInterval(() => {
+                expect(countdown.state.count).toBe(3);
+                expect(countdown.state.countdownStatus).toBe("pause");
+                done();
+            }, 1001)
+        });
+
+        it("changing status to stopped should reset count to 0", (done) => {
+            var countdown = TestUtils.renderIntoDocument(<Countdown/>);
+            countdown.handleSetCountDown(3);
+            countdown.handleCountdownStatusChanged("stopped")
+
+            setInterval(() => {
+                expect(countdown.state.count).toBe(0);
+                expect(countdown.state.countdownStatus).toBe("stopped");
+                done();
+            }, 1001)
         });
     })
 });
