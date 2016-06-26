@@ -17,19 +17,18 @@ var Controls = React.createClass({
                 return (
                     <button className="button secondary" onClick={this.onStatusChanged("pause")}>Pause</button>
                 )
-            } else if (countdownStatus === "pause") {
+            } else {
                 return (
                     <button className="button primary" onClick={this.onStatusChanged("started")}>Start</button>
                 )
-            }
-        };
-        return (
-            <div className="controls">
-                {renderElement()}
-                <button className="button alert hallow" onClick={this.onStatusChanged("stopped")}>Cancel</button>
-            </div>
-        )
-    }
-});
+        }
+    };
+    return (
+        <div className="controls">
+            {renderElement()}
+            <button className="button alert hallow" onClick={this.onStatusChanged("stopped")}>Cancel</button>
+        </div>
+    )
+}});
 
 module.exports = Controls;
